@@ -1,0 +1,17 @@
+# Poetry
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE - 必要に応じてコメントアウトを外してください
+# .idea/
+# .vscode/
