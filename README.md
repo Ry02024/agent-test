@@ -1,6 +1,6 @@
 # 初めてのStreamlitアプリ
 
-これはStreamlitで構築されたシンプルな「Hello, World!」スタイルのアプリケーションです。Pythonのバージョン管理にpyenvを、依存関係管理にPoetryを使用し、`src`ディレクトリを中心とした構造化されたアプローチでStreamlitアプリをセットアップして実行する方法の基本的な例として機能します。
+これはStreamlitで構築された、Google OAuth 2.0による認証機能を備えたアプリケーションです。Pythonのバージョン管理にpyenvを、依存関係管理にPoetryを使用し、`src`ディレクトリを中心とした構造化されたアプローチでStreamlitアプリをセットアップして実行する方法の基本的な例として機能します。
 
 ## プロジェクト構造
 
@@ -29,7 +29,31 @@
 
 主要なアプリケーションロジックは`src/my_streamlit_app/`ディレクトリ内に配置されます。`app.py`は、これらのモジュールを呼び出してアプリケーションを起動する役割を担います。
 
+## 認証機能
+
+このアプリケーションは、ユーザー認証のためにGoogle OAuth 2.0を使用しています。これにより、ユーザーは自身のGoogleアカウントを使用して安全にログインできます。アプリケーションはユーザーのメールアドレス、名前、プロフィール画像を取得し、パーソナライズされた体験を提供します。
+
 ## セットアップ手順
+
+### 必要な環境変数
+
+このアプリケーションをローカルで実行するには、Google OAuth 2.0の認証情報を含む環境変数を設定する必要があります。プロジェクトのルートディレクトリに`.env`という名前のファイルを作成し、以下の形式で必要な情報を記述してください。
+
+```env
+GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID_HERE"
+GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET_HERE"
+REDIRECT_URI="YOUR_REDIRECT_URI_HERE"
+```
+
+**各変数の説明:**
+
+*   `GOOGLE_CLIENT_ID`: Google Cloud Consoleで取得したOAuth 2.0クライアントIDです。
+*   `GOOGLE_CLIENT_SECRET`: Google Cloud Consoleで取得したクライアントシークレットです。
+*   `REDIRECT_URI`: Google OAuth 2.0で承認されたリダイレクトURIです。ローカル開発の場合、通常は `http://localhost:8501` のようなStreamlitアプリが動作するURLになります。Google Cloud ConsoleでこのURIを事前に登録しておく必要があります。
+
+これらの認証情報は、Google Cloud Console ([https://console.cloud.google.com/](https://console.cloud.google.com/)) の「APIとサービス」>「認証情報」セクションで、OAuth 2.0クライアントIDを作成または選択することで取得できます。
+
+**重要:** `.env`ファイルには機密情報が含まれるため、Gitリポジトリにはコミットしないでください。このプロジェクトの`.gitignore`ファイルには、`.env`ファイルが既に記載されており、誤ってコミットされるのを防ぎます。
 
 ### 1. Python環境のセットアップ (pyenv & Python 3.11)
 
@@ -94,7 +118,7 @@ poetry install
 
 ## Streamlitアプリの実行
 
-依存関係をインストールした後、Streamlitアプリケーションを実行できます。
+依存関係をインストールし、`.env`ファイルに必要な環境変数を設定した後、Streamlitアプリケーションを実行できます。
 
 1.  **仮想環境をアクティブにする（まだアクティブでない場合）：**
     Poetryコマンドは通常、プロジェクトの仮想環境内で自動的に実行されます。他の目的で手動でアクティブにする必要がある場合：
@@ -109,4 +133,5 @@ poetry install
     poetry run streamlit run app.py
     ```
 
-これによりStreamlit開発サーバーが起動し、デフォルトのWebブラウザが自動的にアプリのURL（通常は `http://localhost:8501`）を開きます。`app.py`が`src/my_streamlit_app/pages/home.py`のコンテンツを適切に表示するように設定されていれば、ホームページが表示されます。 (注: `app.py`の現在の内容は基本的な"Hello, World!"であり、`home.py`を直接呼び出すロジックはまだ実装されていません。)
+これによりStreamlit開発サーバーが起動し、デフォルトのWebブラウザが自動的にアプリのURL（通常は `http://localhost:8501`）を開きます。ログインページが表示され、Googleアカウントでログインするとホームページにアクセスできます。
+(注: `app.py`はGoogle OAuthログインフローを処理し、成功すると`src/my_streamlit_app/pages/home.py`のコンテンツを表示します。)
