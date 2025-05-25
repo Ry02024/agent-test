@@ -9,10 +9,14 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
 
+# デバッグモード用の環境変数 (True, 1, yes, on などで有効)
+DEBUG_MODE = os.getenv("STREAMLIT_DEBUG_MODE", "False").lower() in ("true", "1", "yes", "on")
+
 if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET or not REDIRECT_URI:
     # 実際のアプリケーションでは、ここでエラーを発生させるか、
     # Streamlitのst.error()でユーザーに設定が不足していることを通知することを検討してください。
     print("警告: Google OAuthの環境変数が設定されていません。(.envファイルを確認してください)")
+
 
 AUTHORIZATION_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"

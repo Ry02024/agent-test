@@ -16,6 +16,11 @@ dependencies = [
 [tool.poetry]
 packages = [{include = "my_streamlit_app", from = "src"}]
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+pytest-mock = "^3.10"
+pytest-cov = "^5.0.0" # この行が追加される (バージョンは異なる場合があります)
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

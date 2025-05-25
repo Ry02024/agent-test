@@ -29,10 +29,12 @@ def get_google_auth_url():
     return authorization_url
 
 def fetch_token_and_user_info(authorization_code: str, received_csrf_state: str):
-    """認証コードを使用してアクセストークンとユーザー情報を取得します。"""
     if not config.GOOGLE_CLIENT_ID or not config.GOOGLE_CLIENT_SECRET:
         st.error("Google Client IDまたはSecretが設定されていません。")
         raise ValueError("OAuth設定が不完全です。")
+
+    if config.DEBUG_MODE: # DEBUG_MODEがTrueの時のみ出力
+        print(f"DEBUG (auth.py - fetch_token): auth_flow before CSRF check: {st.session_state.get('auth_flow')}")
 
     # CSRF stateの検証
     expected_csrf_state = st.session_state.auth_flow.get("oauth_state")

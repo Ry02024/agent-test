@@ -71,7 +71,7 @@ poetry install
 
 プロジェクトのルートディレクトリから次のコマンドを実行します。
     ```bash
-    streamlit run app.py
+    poetry run streamlit run app.py
     ```
 
 これによりStreamlit開発サーバーが起動し、デフォルトのWebブラウザが自動的にアプリのURL（通常は `http://localhost:8501`）を開きます。ページに「Hello, World!」と表示されます。
