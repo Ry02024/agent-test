@@ -1,6 +1,33 @@
 # 初めてのStreamlitアプリ
 
-これはStreamlitで構築されたシンプルな「Hello, World!」アプリケーションです。Pythonのバージョン管理にpyenvを、依存関係管理にPoetryを使用してStreamlitアプリをセットアップして実行する方法の基本的な例として機能します。
+これはStreamlitで構築されたシンプルな「Hello, World!」スタイルのアプリケーションです。Pythonのバージョン管理にpyenvを、依存関係管理にPoetryを使用し、`src`ディレクトリを中心とした構造化されたアプローチでStreamlitアプリをセットアップして実行する方法の基本的な例として機能します。
+
+## プロジェクト構造
+
+このプロジェクトの主なファイルとディレクトリは次のとおりです。
+
+```
+.
+├── .env                  # 環境変数（.gitignoreで保護）
+├── .gitignore            # Gitで無視するファイルを指定
+├── .python-version       # pyenvで使用するPythonバージョン
+├── README.md             # このファイル
+├── app.py                # Streamlitアプリケーションのメインエントリポイント
+├── index.html            # (オプションの静的ファイル、この例では未使用)
+├── poetry.lock           # 依存関係のロックファイル
+├── pyproject.toml        # Poetryのプロジェクト設定と依存関係
+└── src/                  # アプリケーションの主要なソースコード
+    └── my_streamlit_app/ # メインのPythonパッケージ
+        ├── __init__.py
+        ├── auth.py       # 認証関連のロジック
+        ├── config.py     # 設定情報（APIキーなど）
+        └── pages/        # Streamlitのマルチページ機能のページ
+            ├── __init__.py
+            ├── .keep       # ディレクトリ構造維持のためのダミーファイル
+            └── home.py     # ホームページ
+```
+
+主要なアプリケーションロジックは`src/my_streamlit_app/`ディレクトリ内に配置されます。`app.py`は、これらのモジュールを呼び出してアプリケーションを起動する役割を担います。
 
 ## セットアップ手順
 
@@ -74,11 +101,12 @@ poetry install
     ```bash
     poetry shell
     ```
+    または、各コマンドの前に`poetry run`を付けます。
 
 2.  **Streamlitアプリの実行：**
     プロジェクトのルートディレクトリから：
     ```bash
-    streamlit run app.py
+    poetry run streamlit run app.py
     ```
 
-これによりStreamlit開発サーバーが起動し、デフォルトのWebブラウザが自動的にアプリのURL（通常は `http://localhost:8501`）を開きます。ページに「Hello, World!」と表示されます。
+これによりStreamlit開発サーバーが起動し、デフォルトのWebブラウザが自動的にアプリのURL（通常は `http://localhost:8501`）を開きます。`app.py`が`src/my_streamlit_app/pages/home.py`のコンテンツを適切に表示するように設定されていれば、ホームページが表示されます。 (注: `app.py`の現在の内容は基本的な"Hello, World!"であり、`home.py`を直接呼び出すロジックはまだ実装されていません。)

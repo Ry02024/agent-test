@@ -1,0 +1,23 @@
+# Ignore environment variables file
+.env
+
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Poetry virtual environment
+.venv/
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit specific
+.streamlit/
+
+# Other
+*.DS_Store
+*.log*
