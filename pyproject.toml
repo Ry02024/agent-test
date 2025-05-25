@@ -8,7 +8,9 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "streamlit (>=1.45.1,<2.0.0)"
+    "streamlit (>=1.45.1,<2.0.0)",
+    "requests-oauthlib (>=1.3.0,<2.0.0)", # OAuth 2.0 フローの処理
+    "python-dotenv (>=0.20.0,<2.0.0)"    # .env ファイルからの環境変数の読み込み
 ]
 
 [tool.poetry]
